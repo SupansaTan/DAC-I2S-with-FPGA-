@@ -19,13 +19,20 @@ architecture stractural of generator is
 		);
 	end component;
 	
-	component generate_data is
+	component generate_ramp is
 	port (
 			BCK : in std_logic;
 			DIN : out std_logic_vector(15 downto 0)
 		);
 	end component;
 	
+	component generate_sin is
+	port (
+		BCK : in std_logic;
+		DIN : out std_logic_vector(15 downto 0)
+	);
+	end component;
+
 	component clock_divider is
 		port (
 			CLK_IN : in std_logic;
@@ -47,10 +54,12 @@ architecture stractural of generator is
 begin
 	U0 : clock_divider
 		port map (CLK, CLK_divider);
-	U1 : generate_data
-		port map (CLK_divider, audio_data);
 	U3 : clock_ws
 		port map (CLK_divider, LCK);
+	U1 : generate_ramp
+		port map (CLK_divider, audio_data); 
+	--U4 : generate_sin
+		--port map (CLK_divider, audio_data);
 	U2 : Parallel_Serial_Converter
 		port map (CLK_divider, audio_data, DIN);
 		

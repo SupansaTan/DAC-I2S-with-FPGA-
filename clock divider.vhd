@@ -9,7 +9,7 @@ entity clock_divider is
 end clock_divider;
 
 architecture behavioral of clock_divider is
-	constant count_max : integer := 18; --18
+	constant count_max : integer := 20; 
 	shared variable count : integer range 0 to count_max+1 := 0;
 	signal tmp : std_logic := '0';
 	
